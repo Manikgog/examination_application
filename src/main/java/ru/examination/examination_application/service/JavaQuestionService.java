@@ -1,19 +1,16 @@
 package ru.examination.examination_application.service;
 
 import org.springframework.stereotype.Service;
-import ru.examination.examination_application.ExaminationApplication;
-import ru.examination.examination_application.exception.AddQuestionException;
 import ru.examination.examination_application.model.Question;
-import ru.examination.examination_application.repo.ListOfQuestions;
+import ru.examination.examination_application.repo.QuestionRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class JavaQuestionService implements QuestionService {
-    private ListOfQuestions listOfQuestions;
+    private final QuestionRepository listOfQuestions;
 
-    public JavaQuestionService(ListOfQuestions listOfQuestions) {
+    public JavaQuestionService(QuestionRepository listOfQuestions) {
         this.listOfQuestions = listOfQuestions;
     }
 

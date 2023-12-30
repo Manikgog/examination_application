@@ -13,10 +13,10 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Repository
-public class ListOfQuestions {
+public class QuestionRepositoryImpl implements QuestionRepository {
     private Set<Question> questions;
 
-    public ListOfQuestions(){
+    public QuestionRepositoryImpl(){
         questions = new TreeSet<>(ExaminationApplication.questionsList);
     }
 
