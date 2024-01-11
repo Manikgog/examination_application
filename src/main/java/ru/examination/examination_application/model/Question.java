@@ -3,8 +3,8 @@ package ru.examination.examination_application.model;
 import java.util.Objects;
 
 public class Question implements Comparable{
-    private String question;
-    private String answer;
+    private final String question;
+    private final String answer;
 
     public Question(String question, String answer){
         this.question = question;
@@ -37,13 +37,13 @@ public class Question implements Comparable{
         return Objects.hash(question, answer);
     }
 
-    @Override
-    public String toString() {
-        return "Question{" +
-                "question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Question{" +
+//                "question='" + question + '\'' +
+//                ", answer='" + answer + '\'' +
+//                '}';
+//    }
 
 
     @Override
