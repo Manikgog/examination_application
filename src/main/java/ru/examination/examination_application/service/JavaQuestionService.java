@@ -3,6 +3,7 @@ package ru.examination.examination_application.service;
 import org.springframework.stereotype.Service;
 import ru.examination.examination_application.model.Question;
 import ru.examination.examination_application.repo.QuestionRepository;
+import ru.examination.examination_application.repo.QuestionRepositoryImpl;
 
 import java.util.*;
 
@@ -11,7 +12,7 @@ public class JavaQuestionService implements QuestionService {
     private final QuestionRepository listOfQuestions;
     private final CheckService checkService;
 
-    public JavaQuestionService(QuestionRepository listOfQuestions, CheckService checkService) {
+    public JavaQuestionService(QuestionRepositoryImpl listOfQuestions, CheckService checkService) {
         this.listOfQuestions = listOfQuestions;
         this.checkService = checkService;
     }

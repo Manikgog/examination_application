@@ -10,18 +10,17 @@ import ru.examination.examination_application.service.QuestionService;
 
 import java.util.Set;
 
-
 @RestController
-@RequestMapping("/exam/java")
-public class JavaController {
+@RequestMapping("/exam/math")
+public class MathQuestionController {
     private final QuestionService service;
-    public JavaController(MathQuestionService service){
+    public MathQuestionController(MathQuestionService service){
         this.service = service;
     }
 
     @GetMapping(path = "/add")
     public Object addQuestion(@RequestParam(value = "question", required = false) String question,
-                                @RequestParam(value = "answer", required = false) String answer){
+                              @RequestParam(value = "answer", required = false) String answer){
         return service.add(question, answer);
     }
 
@@ -32,7 +31,7 @@ public class JavaController {
 
     @GetMapping(path = "/remove")
     public Object removeQuestion(@RequestParam(value = "question", required = false) String question,
-                                   @RequestParam(value = "answer", required = false) String answer){
+                                 @RequestParam(value = "answer", required = false) String answer){
         return service.remove(question, answer);
     }
 }

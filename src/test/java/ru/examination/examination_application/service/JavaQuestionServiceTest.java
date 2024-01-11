@@ -6,16 +6,15 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.examination.examination_application.exception.AddQuestionException;
 import ru.examination.examination_application.model.Question;
-import ru.examination.examination_application.repo.QuestionRepository;
 import ru.examination.examination_application.repo.QuestionRepositoryImpl;
 
 import java.util.stream.Stream;
 
 public class JavaQuestionServiceTest {
-    private final QuestionService questionService;
+    private final JavaQuestionService questionService;
     public JavaQuestionServiceTest(){
-        QuestionRepository listOfQuestions = new QuestionRepositoryImpl();
-        CheckService checkService = new CheckServiceImpl(listOfQuestions);
+        QuestionRepositoryImpl listOfQuestions = new QuestionRepositoryImpl();
+        CheckService checkService = new CheckServiceImpl(listOfQuestions, null);
         this.questionService = new JavaQuestionService(listOfQuestions, checkService);
         listOfQuestions.add(new Question("Размер типа double в байтах?", "8 байта"));
         listOfQuestions.add(new Question("Размер типа char в байтах?", "2 байта"));
@@ -79,7 +78,7 @@ public class JavaQuestionServiceTest {
         }else if(answer == null){
             Assertions.assertThrows(AddQuestionException.class, () -> questionService.remove(question, null));
         }else{
-            Integer sizeOfQuestionsBeforeAdding = questionService.getAll().size(); // размер списка вопросов до добавления нового вопроса
+            int sizeOfQuestionsBeforeAdding = questionService.getAll().size(); // размер списка вопросов до добавления нового вопроса
             Question actualResult = questionService.remove(question, answer);
             Assertions.assertEquals(expectedResult, actualResult);
             Assertions.assertEquals(sizeOfQuestionsBeforeAdding - 1, questionService.getAll().size());

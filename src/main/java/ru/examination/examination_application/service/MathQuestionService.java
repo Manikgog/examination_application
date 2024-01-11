@@ -1,16 +1,18 @@
 package ru.examination.examination_application.service;
 
+import org.springframework.stereotype.Service;
 import ru.examination.examination_application.model.Question;
 import ru.examination.examination_application.repo.MathQuestionRepositoryImpl;
 import ru.examination.examination_application.repo.QuestionRepository;
 
 import java.util.Set;
 
-public class MathQuestionServiceImpl implements QuestionService {
+@Service
+public class MathQuestionService implements QuestionService {
     private final QuestionRepository listOfQuestions;
     private final CheckService checkService;
 
-    public MathQuestionServiceImpl(MathQuestionRepositoryImpl listOfQuestions, CheckService checkService) {
+    public MathQuestionService(MathQuestionRepositoryImpl listOfQuestions, CheckService checkService) {
         this.listOfQuestions = listOfQuestions;
         this.checkService = checkService;
     }
