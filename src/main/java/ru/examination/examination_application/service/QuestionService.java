@@ -6,7 +6,7 @@ import java.util.Set;
 
 public interface QuestionService {
     Question add(String question, String answer);
-    Question remove(Question question);
+    Question remove(String q, String answer);
     Set<Question> getAll();
     Question getRandomQuestion();
 }

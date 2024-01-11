@@ -3,14 +3,15 @@ package ru.examination.examination_application.service;
 import org.springframework.stereotype.Service;
 import ru.examination.examination_application.exception.AddQuestionException;
 import ru.examination.examination_application.exception.WrongAmountQuestionsRequestException;
+import ru.examination.examination_application.repo.QuestionRepository;
 
 
 @Service
 public class CheckServiceImpl implements CheckService {
-    private JavaQuestionService javaQuestionService;
+    private final QuestionRepository listOfQuestions;
 
-    public CheckServiceImpl(JavaQuestionService javaQuestionService){
-        this.javaQuestionService = javaQuestionService;
+    public CheckServiceImpl(QuestionRepository listOfQuestions){
+        this.listOfQuestions = listOfQuestions;
     }
     @Override
     public void check(String question, String answer){
@@ -29,7 +30,7 @@ public class CheckServiceImpl implements CheckService {
     }
 
     public void checkAmount(int amount){
-        if(amount > javaQuestionService.getAll().size()){
+        if(amount > listOfQuestions.getAll().size()){
             throw new WrongAmountQuestionsRequestException("Слишком большое число вопросов.");
         }else if(amount <= 0){
             throw new WrongAmountQuestionsRequestException("Количество запрашиваемых вопросов должно быть больше нуля.");

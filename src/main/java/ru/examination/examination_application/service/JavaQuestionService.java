@@ -9,18 +9,23 @@ import java.util.*;
 @Service
 public class JavaQuestionService implements QuestionService {
     private final QuestionRepository listOfQuestions;
+    private final CheckService checkService;
 
-    public JavaQuestionService(QuestionRepository listOfQuestions) {
+    public JavaQuestionService(QuestionRepository listOfQuestions, CheckService checkService) {
         this.listOfQuestions = listOfQuestions;
+        this.checkService = checkService;
     }
 
     public Question add(String question, String answer) {
+        checkService.check(question, answer);
         Question q = new Question(question, answer);
         listOfQuestions.add(q);
         return q;
     }
 
-    public Question remove(Question question) {
+    public Question remove(String q, String answer) {
+        checkService.check(q, answer);
+        Question question = new Question(q, answer);
         listOfQuestions.remove(question);
         return question;
     }
