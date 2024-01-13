@@ -26,64 +26,87 @@ public class JavaQuestionServiceTest {
 
     }
 
-    public static Stream<Arguments> provideParamsForAddMethodTests(){
+    public static Stream<Arguments> provideParamsForPositiveAddMethodTests(){
         return Stream.of(
                 Arguments.of("Первое название языка Java?", "Oak",
                         new Question("Первое название языка Java?", "Oak")),
                 Arguments.of("Размер типа int в байтах?", "4 байта",
-                        new Question("Размер типа int в байтах?", "4 байта")),
-                Arguments.of(null, "4 байта", null),
-                Arguments.of("Размер типа float в байтах?", null, null),
-                Arguments.of(null, null, null)
+                        new Question("Размер типа int в байтах?", "4 байта"))
         );
     }
 
     @ParameterizedTest
-    @MethodSource("provideParamsForAddMethodTests")
+    @MethodSource("provideParamsForPositiveAddMethodTests")
     public void testAdd(String question, String answer, Question expectedResult){
+        // размер списка вопросов до добавления нового вопроса
+        int sizeOfQuestionsBeforeAdding = questionService.getAll().size();
+        Question actualResult = questionService.add(question, answer);
+        Assertions.assertEquals(expectedResult, actualResult);
+        // проверка увеличения списка вопросов после добавления вопроса
+        Assertions.assertEquals(sizeOfQuestionsBeforeAdding + 1, questionService.getAll().size());
+        // проверка наличия добавленного вопроса в списке
+        Assertions.assertTrue(questionService.getAll().contains(actualResult));
+    }
+
+    public static Stream<Arguments> provideParamsForNegativeAddMethodTests(){
+        return Stream.of(
+                Arguments.of(null, "4 байта"),
+                Arguments.of("Размер типа float в байтах?", null),
+                Arguments.of(null, null)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideParamsForNegativeAddMethodTests")
+    public void testAdd(String question, String answer){
         if(question == null && answer == null){
             Assertions.assertThrows(AddQuestionException.class, () -> questionService.add(null, null));
         }else if(question == null) {
             Assertions.assertThrows(AddQuestionException.class, () -> questionService.add(null, answer));
         }else if(answer == null){
             Assertions.assertThrows(AddQuestionException.class, () -> questionService.add(question, null));
-        }else{
-            int sizeOfQuestionsBeforeAdding = questionService.getAll().size(); // размер списка вопросов до добавления нового вопроса
-            Question actualResult = questionService.add(question, answer);
-            Assertions.assertEquals(expectedResult, actualResult);
-            Assertions.assertEquals(sizeOfQuestionsBeforeAdding + 1, questionService.getAll().size());
         }
-
     }
 
-    public static Stream<Arguments> provideParamsForRemoveMethodTests(){
+    public static Stream<Arguments> provideParamsForPositiveRemoveMethodTests(){
         return Stream.of(
                 Arguments.of("Размер типа double в байтах?", "8 байта",
                         new Question("Размер типа double в байтах?", "8 байта")),
                 Arguments.of("Размер типа char в байтах?", "2 байта",
-                        new Question("Размер типа char в байтах?", "2 байта")),
-                Arguments.of(null, "4 байта", null),
-                Arguments.of("Размер типа float в байтах?", null, null),
-                Arguments.of(null, null, null)
+                        new Question("Размер типа char в байтах?", "2 байта"))
         );
     }
 
     @ParameterizedTest
-    @MethodSource("provideParamsForRemoveMethodTests")
+    @MethodSource("provideParamsForPositiveRemoveMethodTests")
     public void testRemove(String question, String answer, Question expectedResult){
+        int sizeOfQuestionsBeforeAdding = questionService.getAll().size(); // размер списка вопросов до добавления нового вопроса
+        Question actualResult = questionService.remove(question, answer);
+        Assertions.assertEquals(expectedResult, actualResult);
+        // проверка уменьшения размера хранилища вопросов после удаления
+        Assertions.assertEquals(sizeOfQuestionsBeforeAdding - 1, questionService.getAll().size());
+        // проверка отсутствия удалённого вопроса в хранилище
+        Assertions.assertFalse(questionService.getAll().contains(actualResult));
+    }
+
+    public static Stream<Arguments> provideParamsForNegativeRemoveMethodTests(){
+        return Stream.of(
+                Arguments.of(null, "4 байта"),
+                Arguments.of("Размер типа float в байтах?", null),
+                Arguments.of(null, null)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideParamsForNegativeRemoveMethodTests")
+    public void testRemove(String question, String answer){
         if(question == null && answer == null){
             Assertions.assertThrows(AddQuestionException.class, () -> questionService.remove(null, null));
         }else if(question == null) {
             Assertions.assertThrows(AddQuestionException.class, () -> questionService.remove(null, answer));
         }else if(answer == null){
             Assertions.assertThrows(AddQuestionException.class, () -> questionService.remove(question, null));
-        }else{
-            int sizeOfQuestionsBeforeAdding = questionService.getAll().size(); // размер списка вопросов до добавления нового вопроса
-            Question actualResult = questionService.remove(question, answer);
-            Assertions.assertEquals(expectedResult, actualResult);
-            Assertions.assertEquals(sizeOfQuestionsBeforeAdding - 1, questionService.getAll().size());
         }
-
     }
 
 }
