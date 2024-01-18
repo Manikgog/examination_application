@@ -37,13 +37,13 @@ public class Question implements Comparable{
         return Objects.hash(question, answer);
     }
 
-//    @Override
-//    public String toString() {
-//        return "Question{" +
-//                "question='" + question + '\'' +
-//                ", answer='" + answer + '\'' +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                '}';
+    }
 
 
     @Override

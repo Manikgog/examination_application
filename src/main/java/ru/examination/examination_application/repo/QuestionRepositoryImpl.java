@@ -14,22 +14,24 @@ import java.util.stream.Collectors;
 
 @Repository
 public class QuestionRepositoryImpl implements QuestionRepository {
-    private Set<Question> questions;
+    private final Set<Question> questions;
 
     public QuestionRepositoryImpl(){
         questions = new TreeSet<>(ExaminationApplication.questionsList);
     }
 
-    public void add(Question question){
+    public Question add(Question question){
         if(!questions.add(question)){
             throw new AddQuestionException("Такой вопрос уже есть");
         }
+        return question;
     }
 
-    public void remove(Question question){
+    public Question remove(Question question){
         if(!questions.remove(question)) {
             throw new WrongQuestionException("Такой вопрос отсутствует в списке");
         }
+        return question;
     }
 
     public Set<Question> getAll(){

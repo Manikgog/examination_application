@@ -11,9 +11,9 @@ import ru.examination.examination_application.service.ExaminerServiceImpl;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/exam/java")
+@RequestMapping("/exam")
 public class ExaminerController {
-    private ExaminerService questionService;
+    private final ExaminerService questionService;
     public ExaminerController(ExaminerServiceImpl service){
         this.questionService = service;
     }

@@ -18,7 +18,7 @@ public class CheckServiceImpl implements CheckService {
         this.listOfMathQuestions = listOfMathQuestions;
     }
     @Override
-    public void check(String question, String answer){
+    public Throwable check(String question, String answer){
         String str = "";
         if(question == null || answer == null) {
             if (question == null && answer == null) {
@@ -31,6 +31,7 @@ public class CheckServiceImpl implements CheckService {
             throw new AddQuestionException(str);
         }
 
+        return null;
     }
 
     public void checkAmount(int amount){

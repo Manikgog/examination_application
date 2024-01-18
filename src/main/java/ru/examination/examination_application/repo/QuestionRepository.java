@@ -5,9 +5,9 @@ import ru.examination.examination_application.model.Question;
 import java.util.Set;
 
 public interface QuestionRepository {
-    void add(Question question);
+    Question add(Question question);
 
-    void remove(Question question);
+    Question remove(Question question);
 
     Set<Question> getAll();
 

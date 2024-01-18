@@ -46,16 +46,18 @@ public class MathQuestionRepositoryImpl implements QuestionRepository{
         questions.add(new Question("Какое наименьшее количество раз справил свой день рождения солдат-призывник, если все свои дни рождения он отмечал?", "18 раз"));
     }
 
-    public void add(Question question){
+    public Question add(Question question){
         if(!questions.add(question)){
             throw new AddQuestionException("Такой вопрос уже есть");
         }
+        return question;
     }
 
-    public void remove(Question question){
+    public Question remove(Question question){
         if(!questions.remove(question)) {
             throw new WrongQuestionException("Такой вопрос отсутствует в списке");
         }
+        return question;
     }
 
     public Set<Question> getAll(){
