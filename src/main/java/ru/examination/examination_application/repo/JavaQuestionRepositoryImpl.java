@@ -58,7 +58,7 @@ public class JavaQuestionRepositoryImpl implements QuestionRepository {
         return questions
                 .stream()
                 .toList()
-                .get(Math.abs(rnd.nextInt() % questions.size()));
+                .get(Math.abs(rnd.nextInt(questions.size())));
     }
 
 
