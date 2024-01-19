@@ -23,6 +23,9 @@ public class MathQuestionServiceMockTest {
     @InjectMocks
     MathQuestionService questionService;
 
+    /**
+     * Тестирование метода add(String question, String answer) класса MathQuestionServiceImpl.
+     */
     @Test
     public void addTest(){
         when(listOfQuestions.add(QUESTION_1)).thenReturn(QUESTION_1);
@@ -45,6 +48,9 @@ public class MathQuestionServiceMockTest {
 
     }
 
+    /**
+     * Тестирование метода remove(String question, String answer) класса MathQuestionServiceImpl.
+     */
     @Test void removeTest(){
         when(listOfQuestions.remove(QUESTION_3)).thenReturn(QUESTION_3);
 
@@ -66,6 +72,9 @@ public class MathQuestionServiceMockTest {
         Assertions.assertThrows(AddQuestionException.class, ()->questionService.remove( null, "answer"));
     }
 
+    /**
+     * Тестирование метода getAll() класса MathQuestionServiceImpl.
+     */
     @Test
     void getAllTest(){
         when(listOfQuestions.getAll()).thenReturn(QUESTIONS);

@@ -2,23 +2,20 @@ package ru.examination.examination_application.repo;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
-import ru.examination.examination_application.ExaminationApplication;
 import ru.examination.examination_application.exception.AddQuestionException;
 import ru.examination.examination_application.exception.WrongQuestionException;
 import ru.examination.examination_application.model.Question;
-
 import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 @Repository
 public class JavaQuestionRepositoryImpl implements QuestionRepository {
     private final Set<Question> questions;
 
     public JavaQuestionRepositoryImpl(){
-        questions = new TreeSet<>(ExaminationApplication.questionsList);
+        questions = new TreeSet<>();
     }
 
     @PostConstruct

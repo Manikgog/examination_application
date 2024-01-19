@@ -46,6 +46,12 @@ public class MathQuestionRepositoryImpl implements QuestionRepository{
         questions.add(new Question("Какое наименьшее количество раз справил свой день рождения солдат-призывник, если все свои дни рождения он отмечал?", "18 раз"));
     }
 
+    /**
+     * Метод для добавления вопроса, переданного в параметре метода
+     * в коллекцию Set<Question> questions.
+     * @param question - объект класса Question.
+     * @return - объект класса Question.
+     */
     public Question add(Question question){
         if(!questions.add(question)){
             throw new AddQuestionException("Такой вопрос уже есть");
@@ -53,6 +59,12 @@ public class MathQuestionRepositoryImpl implements QuestionRepository{
         return question;
     }
 
+    /**
+     * Метод для удаления вопроса, переданного в параметре метода
+     * из коллекции Set<Question> questions
+     * @param question - объект класса Question.
+     * @return объект класса Question.
+     */
     public Question remove(Question question){
         if(!questions.remove(question)) {
             throw new WrongQuestionException("Такой вопрос отсутствует в списке");
@@ -60,10 +72,18 @@ public class MathQuestionRepositoryImpl implements QuestionRepository{
         return question;
     }
 
+    /**
+     * Метод для получения всего списка вопросов.
+     * @return Set<Question>
+     */
     public Set<Question> getAll(){
         return Collections.unmodifiableSet(questions);
     }
 
+    /**
+     * Метод для получения случайного вопроса.
+     * @return Question - объект класса Question.
+     */
     public Question getRandom(){
         Random rnd = new Random();
         return questions
