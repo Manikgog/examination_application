@@ -1,6 +1,7 @@
 package ru.examination.examination_application.service;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -19,7 +20,10 @@ public class MathQuestionRepositoryTest {
     private final MathQuestionRepositoryImpl questionRepository;
     public MathQuestionRepositoryTest(){
         this.questionRepository = new MathQuestionRepositoryImpl();
+    }
 
+    @BeforeEach
+    void initRepo(){
         questionRepository.add(MATH_QUESTION_1);
         questionRepository.add(MATH_QUESTION_2);
         questionRepository.add(MATH_QUESTION_3);
@@ -119,7 +123,7 @@ public class MathQuestionRepositoryTest {
 
     /**
      * Тестирование удаления несуществующего в списке вопроса.
-     * @param question
+     * @param question - объект класса Question.
      */
     @ParameterizedTest
     @MethodSource("provideParamsForNegative_RemoveMethod_Test")

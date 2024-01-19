@@ -18,6 +18,11 @@ public class ExaminerController {
         this.questionService = service;
     }
 
+    /**
+     * Метод для получения списка вопросов.
+     * @param amount - запрашиваемое количество вопросов
+     * @return список вопросов в виде set'а
+     */
     @GetMapping(path = "/getQuestions")
     public Set<Question> getQuestions(@RequestParam(value = "amount", required = false) Integer amount){
         return questionService.getQuestions(amount);

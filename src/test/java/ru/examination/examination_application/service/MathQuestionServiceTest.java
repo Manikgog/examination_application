@@ -1,13 +1,14 @@
 package ru.examination.examination_application.service;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.examination.examination_application.exception.AddQuestionException;
 import ru.examination.examination_application.model.Question;
 import ru.examination.examination_application.repo.MathQuestionRepositoryImpl;
-import ru.examination.examination_application.repo.QuestionRepositoryImpl;
+import ru.examination.examination_application.repo.JavaQuestionRepositoryImpl;
 
 import java.util.stream.Stream;
 
@@ -17,11 +18,14 @@ public class MathQuestionServiceTest {
     private final MathQuestionService questionService;
     
     public MathQuestionServiceTest(){
-        QuestionRepositoryImpl javaQuestionRepository = new QuestionRepositoryImpl();
+        JavaQuestionRepositoryImpl javaQuestionRepository = new JavaQuestionRepositoryImpl();
         MathQuestionRepositoryImpl mathQuestionRepository = new MathQuestionRepositoryImpl();
         CheckService checkService = new CheckServiceImpl(javaQuestionRepository, mathQuestionRepository);
         questionService = new MathQuestionService(mathQuestionRepository, checkService);
+    }
 
+    @BeforeEach
+    void initRepo(){
         questionService.add(MATH_QUESTION_1.getQuestion(), MATH_QUESTION_1.getAnswer());
         questionService.add(MATH_QUESTION_2.getQuestion(), MATH_QUESTION_2.getAnswer());
         questionService.add(MATH_QUESTION_3.getQuestion(), MATH_QUESTION_3.getAnswer());
@@ -43,7 +47,6 @@ public class MathQuestionServiceTest {
         questionService.add(MATH_QUESTION_19.getQuestion(), MATH_QUESTION_19.getAnswer());
         questionService.add(MATH_QUESTION_20.getQuestion(), MATH_QUESTION_20.getAnswer());
         questionService.add(MATH_QUESTION_21.getQuestion(), MATH_QUESTION_21.getAnswer());
-
     }
 
     public static Stream<Arguments> provideParamsForPositiveAddMethodTests(){
@@ -55,6 +58,13 @@ public class MathQuestionServiceTest {
         );
     }
 
+    /**
+     * Тест метода add(String question, String answer) при наличии в
+     * зависимости класса MathQuestionRepositoryImpl для работы со списком вопросов.
+     * @param question - вопрос в виде String.
+     * @param answer - ответ в виде String.
+     * @param expectedResult - ожидаемый результат String.
+     */
     @ParameterizedTest
     @MethodSource("provideParamsForPositiveAddMethodTests")
     public void testAdd(String question, String answer, Question expectedResult){
@@ -72,10 +82,20 @@ public class MathQuestionServiceTest {
         return Stream.of(
                 Arguments.of(null, "4 байта"),
                 Arguments.of("Размер типа float в байтах?", null),
-                Arguments.of(null, null)
+                Arguments.of(null, null),
+                Arguments.of("question", ""),
+                Arguments.of("", "answer"),
+                Arguments.of("", "")
         );
     }
 
+    /**
+     * Тест метода add(String question, String answer) при наличии в
+     * зависимости класса MathQuestionRepositoryImpl для работы со списком вопросов.
+     * Тестирование при передачи в качестве параметров - null.
+     * @param question - вопрос в виде String.
+     * @param answer - ответ в виде String.
+     */
     @ParameterizedTest
     @MethodSource("provideParamsForNegativeAddMethodTests")
     public void testAdd(String question, String answer){
@@ -97,6 +117,13 @@ public class MathQuestionServiceTest {
         );
     }
 
+    /**
+     * Тест метода remove(String question, String answer) при наличии в
+     * зависимости класса MathQuestionRepositoryImpl для работы со списком вопросов.
+     * @param question - вопрос в виде String.
+     * @param answer - ответ в виде String.
+     * @param expectedResult - ожидаемый результат String.
+     */
     @ParameterizedTest
     @MethodSource("provideParamsForPositiveRemoveMethodTests")
     public void testRemove(String question, String answer, Question expectedResult){
@@ -113,10 +140,20 @@ public class MathQuestionServiceTest {
         return Stream.of(
                 Arguments.of(null, "4 байта"),
                 Arguments.of("Размер типа float в байтах?", null),
-                Arguments.of(null, null)
+                Arguments.of(null, null),
+                Arguments.of("question", ""),
+                Arguments.of("", "answer"),
+                Arguments.of("", "")
         );
     }
 
+    /**
+     * Тест метода remove(String question, String answer) при наличии в
+     * зависимости класса MathQuestionRepositoryImpl для работы со списком вопросов.
+     * Тестирование при передачи в качестве параметров - null.
+     * @param question - вопрос в виде String.
+     * @param answer - ответ в виде String.
+     */
     @ParameterizedTest
     @MethodSource("provideParamsForNegativeRemoveMethodTests")
     public void testRemove(String question, String answer){

@@ -8,5 +8,5 @@ public interface QuestionService {
     Question add(String question, String answer);
     Question remove(String q, String answer);
     Set<Question> getAll();
-    Question getRandomQuestion();
+    //Question getRandomQuestion();
 }

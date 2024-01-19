@@ -18,19 +18,35 @@ public class MathQuestionController {
         this.service = service;
     }
 
+    /**
+     * Метод для добавления вопроса по Java и ответа на него.
+     * @param question - вопрос в виде String.
+     * @param answer - ответ в виде String.
+     * @return объект Question.
+     */
     @GetMapping(path = "/add")
-    public Object addQuestion(@RequestParam(value = "question", required = false) String question,
+    public Question addQuestion(@RequestParam(value = "question", required = false) String question,
                               @RequestParam(value = "answer", required = false) String answer){
         return service.add(question, answer);
     }
 
+    /**
+     * Метод для получения списка всех вопросов с ответами.
+     * @return Set<Question>.
+     */
     @GetMapping
     public Set<Question> getQuestions(){
         return service.getAll();
     }
 
+    /**
+     * Метод для удаления вопроса и ответа на него.
+     * @param question - вопрос в виде String.
+     * @param answer - ответ в виде String.
+     * @return объект Question.
+     */
     @GetMapping(path = "/remove")
-    public Object removeQuestion(@RequestParam(value = "question", required = false) String question,
+    public Question removeQuestion(@RequestParam(value = "question", required = false) String question,
                                  @RequestParam(value = "answer", required = false) String answer){
         return service.remove(question, answer);
     }

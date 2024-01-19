@@ -1,21 +1,27 @@
 package ru.examination.examination_application.service;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.examination.examination_application.exception.AddQuestionException;
 import ru.examination.examination_application.model.Question;
-import ru.examination.examination_application.repo.QuestionRepositoryImpl;
+import ru.examination.examination_application.repo.JavaQuestionRepositoryImpl;
 
 import java.util.stream.Stream;
 
 public class JavaQuestionServiceTest {
     private final JavaQuestionService questionService;
+    private final JavaQuestionRepositoryImpl listOfQuestions;
     public JavaQuestionServiceTest(){
-        QuestionRepositoryImpl listOfQuestions = new QuestionRepositoryImpl();
+        this.listOfQuestions = new JavaQuestionRepositoryImpl();
         CheckService checkService = new CheckServiceImpl(listOfQuestions, null);
         this.questionService = new JavaQuestionService(listOfQuestions, checkService);
+    }
+
+    @BeforeEach
+    void initRepo(){
         listOfQuestions.add(new Question("Размер типа double в байтах?", "8 байта"));
         listOfQuestions.add(new Question("Размер типа char в байтах?", "2 байта"));
         listOfQuestions.add(new Question("Сколько примитивных типов существует в Java?", "8"));
@@ -23,7 +29,6 @@ public class JavaQuestionServiceTest {
         listOfQuestions.add(new Question("В чём разница между char и Character?", "char является примитивным типом, а Character классом"));
         listOfQuestions.add(new Question("Параметры в Java передаются по ссылке или по значению?", "В Java все аргументы передаются по значению"));
         listOfQuestions.add(new Question("Перечислите принципы ООП?", "Инкапсуляция, наследование, , полиморфизм"));
-
     }
 
     public static Stream<Arguments> provideParamsForPositiveAddMethodTests(){
@@ -35,6 +40,11 @@ public class JavaQuestionServiceTest {
         );
     }
 
+    /**
+     *  Тестирование метода add(String question, String answer) класса JavaQuestionService
+     *  при наличии зависимости в виде класса репозитория JavaQuestionRepositoryImpl.
+     *  Тестирование проводится в условиях наличия всех параметров метода add.
+     */
     @ParameterizedTest
     @MethodSource("provideParamsForPositiveAddMethodTests")
     public void testAdd(String question, String answer, Question expectedResult){
@@ -52,10 +62,18 @@ public class JavaQuestionServiceTest {
         return Stream.of(
                 Arguments.of(null, "4 байта"),
                 Arguments.of("Размер типа float в байтах?", null),
-                Arguments.of(null, null)
+                Arguments.of(null, null),
+                Arguments.of("question", ""),
+                Arguments.of("", "answer"),
+                Arguments.of("", "")
         );
     }
 
+    /**
+     *  Тестирование метода add(String question, String answer) класса JavaQuestionService
+     *  при наличии зависимости в виде класса репозитория JavaQuestionRepositoryImpl.
+     *  Тестирование при передаче одного или обоих из параметров равным null.
+     */
     @ParameterizedTest
     @MethodSource("provideParamsForNegativeAddMethodTests")
     public void testAdd(String question, String answer){
@@ -77,6 +95,11 @@ public class JavaQuestionServiceTest {
         );
     }
 
+    /**
+     *  Тестирование метода remove(String question, String answer) класса JavaQuestionService
+     *  при наличии зависимости в виде класса репозитория JavaQuestionRepositoryImpl.
+     *  Тестирование проводится в условиях наличия всех параметров метода.
+     */
     @ParameterizedTest
     @MethodSource("provideParamsForPositiveRemoveMethodTests")
     public void testRemove(String question, String answer, Question expectedResult){
@@ -93,10 +116,18 @@ public class JavaQuestionServiceTest {
         return Stream.of(
                 Arguments.of(null, "4 байта"),
                 Arguments.of("Размер типа float в байтах?", null),
-                Arguments.of(null, null)
+                Arguments.of(null, null),
+                Arguments.of("question", ""),
+                Arguments.of("", "answer"),
+                Arguments.of("", "")
         );
     }
 
+    /**
+     *  Тестирование метода add(String question, String answer) класса JavaQuestionService
+     *  при наличии зависимости в виде класса репозитория JavaQuestionRepositoryImpl.
+     *  Тестирование при передаче одного или обоих из параметров равным null.
+     */
     @ParameterizedTest
     @MethodSource("provideParamsForNegativeRemoveMethodTests")
     public void testRemove(String question, String answer){

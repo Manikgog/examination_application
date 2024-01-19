@@ -17,6 +17,12 @@ public class MathQuestionService implements QuestionService {
         this.checkService = checkService;
     }
 
+    /**
+     * Метод для добавления вопроса и ответа в список.
+     * @param question - вопрос в виде String.
+     * @param answer - ответ в виде String.
+     * @return Question - объект класса Question.
+     */
     public Question add(String question, String answer) {
         checkService.check(question, answer);
         Question q = new Question(question, answer);
@@ -24,6 +30,12 @@ public class MathQuestionService implements QuestionService {
         return q;
     }
 
+    /**
+     * Метод для удаления вопроса и ответа из списка вопросов.
+     * @param q - вопрос в виде String.
+     * @param answer - ответ в виде String.
+     * @return Question - объект класса Question.
+     */
     public Question remove(String q, String answer) {
         checkService.check(q, answer);
         Question question = new Question(q, answer);
@@ -31,11 +43,15 @@ public class MathQuestionService implements QuestionService {
         return question;
     }
 
+    /**
+     * Метод для получения списка всех вопросов с ответами.
+     * @return Set<Question>.
+     */
     public Set<Question> getAll() {
         return listOfQuestions.getAll();
     }
 
-    public Question getRandomQuestion() {
-        return listOfQuestions.getRandom();
-    }
+//    public Question getRandomQuestion() {
+//        return listOfQuestions.getRandom();
+//    }
 }
